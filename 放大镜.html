@@ -65,4 +65,44 @@
         </div>
       </div>
 </body>
+<script>
+let small = document.querySelector('.small');
+let big = document.querySelector('.big');
+let mask = document.querySelector('.mask');
+let box = document.querySelector('.box');
+let bigImg = document.querySelector('.big > img');
+small.onmouseover = function(){
+    big.style.display = 'block';
+    mask.style.display = 'block';
+}
+small.onmouseout = function(){
+    big.style.display = 'none';
+    mask.style.display = 'none';
+}
+small.onmousemove = function(e){
+    let mx = e.pageX;
+    let my = e.pageY;
+    let x = mx - box.offsetLeft - mask.offsetWidth / 2;
+    let y = my - box.offsetTop - mask.offsetHeight / 2;
+    if(x <= 0){
+        x = 0;
+    }
+    y = y <= 0 ? 0 : y;
+    let maxX = small.offsetWidth - mask.offsetWidth;
+    let maxY = small.offsetHeight - mask.offsetHeight;
+    x = x >= maxX ? maxX : x;
+    y = y >= maxY ? maxY : y;
+    mask.style.top = y + 'px';
+    mask.style.left = x + 'px';
+    let bigImgmaxX = bigImg.offsetWidth - big.offsetWidth;
+    let bigImgmaxY = bigImg.offsetHeight - big.offsetHeight;
+    let bigImgX = bigImgmaxX * x / maxX;
+    let bigImgY = bigImgmaxY * y / maxY;
+    bigImg.style.top = - bigImgY + 'px';
+    bigImg.style.left = - bigImgX + 'px';
+
+
+}
+
+</script>
 </html>
